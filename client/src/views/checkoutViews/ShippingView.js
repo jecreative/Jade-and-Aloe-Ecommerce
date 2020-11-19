@@ -62,9 +62,15 @@ const ShippingScreen = ({ history, location }) => {
 
   return (
     <div style={{ marginTop: '75px' }}>
-      <Container>
-        <Row className='px-5'>
-          <Col>
+      <Container
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Row xs={2} className='py-2'>
+          <Col xs={12}>
             <h1>Enter Shipping Address</h1>
             {message && <Message variant='danger'>{message}</Message>}
             <Form onSubmit={submitHandler}>
@@ -74,7 +80,7 @@ const ShippingScreen = ({ history, location }) => {
                   type='name'
                   ref={nameRef}
                   defaultValue={
-                    currentShippingAddress.name && currentShippingAddress.name
+                    currentShippingAddress && currentShippingAddress.name
                   }
                   required
                 ></Form.Control>
@@ -86,7 +92,7 @@ const ShippingScreen = ({ history, location }) => {
                   placeholder='Street address, P.O. box, company name, c/o'
                   ref={line1Ref}
                   defaultValue={
-                    currentShippingAddress.line1 && currentShippingAddress.line1
+                    currentShippingAddress && currentShippingAddress.line1
                   }
                   required
                 ></Form.Control>
@@ -99,7 +105,7 @@ const ShippingScreen = ({ history, location }) => {
                   placeholder='Apartment, suite, unit, building, floor, etc.'
                   ref={line2Ref}
                   defaultValue={
-                    currentShippingAddress.line2 && currentShippingAddress.line2
+                    currentShippingAddress && currentShippingAddress.line2
                   }
                 ></Form.Control>
               </Form.Group>
@@ -110,7 +116,7 @@ const ShippingScreen = ({ history, location }) => {
                   type='city'
                   ref={cityRef}
                   defaultValue={
-                    currentShippingAddress.city && currentShippingAddress.city
+                    currentShippingAddress && currentShippingAddress.city
                   }
                   required
                 ></Form.Control>
@@ -123,7 +129,7 @@ const ShippingScreen = ({ history, location }) => {
                   ref={stateRef}
                   required
                   defaultValue={
-                    currentShippingAddress.state && currentShippingAddress.state
+                    currentShippingAddress && currentShippingAddress.state
                   }
                 ></Form.Control>
               </Form.Group>
@@ -135,8 +141,7 @@ const ShippingScreen = ({ history, location }) => {
                   ref={postalCodeRef}
                   required
                   defaultValue={
-                    currentShippingAddress.postalCode &&
-                    currentShippingAddress.postalCode
+                    currentShippingAddress && currentShippingAddress.postalCode
                   }
                 ></Form.Control>
               </Form.Group>
@@ -147,8 +152,7 @@ const ShippingScreen = ({ history, location }) => {
                   type='phone_number'
                   ref={phoneNumberRef}
                   defaultValue={
-                    currentShippingAddress.phoneNumber &&
-                    currentShippingAddress.phoneNumber
+                    currentShippingAddress && currentShippingAddress.phoneNumber
                   }
                 ></Form.Control>
               </Form.Group>
@@ -165,7 +169,7 @@ const ShippingScreen = ({ history, location }) => {
                   type='additional_instructions'
                   ref={instructionsRef}
                   defaultValue={
-                    currentShippingAddress.instructions &&
+                    currentShippingAddress &&
                     currentShippingAddress.instructions
                   }
                   placeholder='Provide details such as building description, a nearby landmark, or other navigation instructions'

@@ -42,42 +42,17 @@ const CartScreen = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
-  //* Get new order id
-  const orderDetails = useSelector((state) => state.orderDetails)
-  const { order } = orderDetails
-
   useEffect(() => {
     //* Handles increasing the quantitiy of items in the cart
     if (productId) {
       dispatch(addToCart(productId, qty))
     }
-
-    //* Check and get order details
-    dispatch(getOrderDetails())
   }, [dispatch, productId, qty])
 
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId))
     history.push('/cart')
   }
-
-  /**
-   *
-   * //* Sample Order 
-    * {
-    * createdAt: new Date().toISOString(),
-      orderId: newOrderRef.id,
-      customerId: req.body.customerId,
-      tax_price: req.body.tax_price,
-      shipping_price: req.body.shipping_price,
-      total_price: req.body.total_price,
-      isPaid: false,
-      isDelivered: false,
-      shippingAddress: null,
-      payment_method: null,
-      orderItems: req.body.orderItems,
-    }
-   */
 
   //* Calculate the items, tax, shipping, & total prices
   const addDecimals = (num) => {
@@ -96,7 +71,7 @@ const CartScreen = ({ match, location, history }) => {
 
   //* Create order object
   const newOrder = {
-    customerId: userInfo.stripeCustomerId,
+    customerId: userInfo ? userInfo.stripeCustomerId : '',
     items_price: Number(itemsPrice),
     tax_price: Number(taxPrice),
     shipping_price: Number(shippingPrice),
@@ -107,7 +82,7 @@ const CartScreen = ({ match, location, history }) => {
   const handleCreateOrder = (e) => {
     e.preventDefault()
     if (!userInfo) {
-      history.push('/login?redirect=shipping')
+      history.push('/login?redirect=cart')
     } else {
       dispatch(setOrder(newOrder))
       history.push('/shipping')
@@ -117,7 +92,7 @@ const CartScreen = ({ match, location, history }) => {
   return stripePayLoading ? (
     <Loader />
   ) : (
-    <Container style={{ marginTop: '50px' }}>
+    <Container style={{ marginTop: '75px' }}>
       <Row>
         <Col md={8}>
           <h1>Shopping Cart</h1>
@@ -189,26 +164,6 @@ const CartScreen = ({ match, location, history }) => {
                   .reduce((acc, item) => acc + item.qty * item.price, 0)
                   .toFixed(2)}
               </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Shipping</Col>
-                  <Col>
-                    <strong>Free Shipping</strong>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Tax</Col>
-                  <Col>Tax Price</Col>
-                </Row>
-              </ListGroup.Item>
-              {/* //! Button will init the stripe checkout process !// */}
-              {/* <StripeCheckout
-                disabled={cartItems.length === 0}
-                order={order}
-                history={history}
-              /> */}
 
               <Button
                 variant='primary'

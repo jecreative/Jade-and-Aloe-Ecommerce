@@ -10,7 +10,9 @@ import store from './redux/store'
 //* Stripe Elements
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHASBLE_KEY)
+const stripePromise = loadStripe(
+  'pk_test_51HgIrOAs4fA7BMN8fDy2gFlVV7OtOvVlQm0gpbG8jZyOHcuQKHON9CCD03ajPIxFKht659A2BOZ9b7Y40thlSXbm003uDpU3c2'
+)
 
 ReactDOM.render(
   <Provider store={store}>

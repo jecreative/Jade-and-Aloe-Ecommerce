@@ -3,7 +3,7 @@ const { db } = require('../utils/firebaseAdmin')
 
 //* @desc    Get all orders
 //* @route   GET /api/orders
-//* @access  Private
+//* @access  Private/Admin
 exports.fetchAllOrders = async (req, res) => {
   // Access firestore database collection
   db.collection('orders')
@@ -26,55 +26,47 @@ exports.fetchAllOrders = async (req, res) => {
 //* @route   POST /api/orders
 //* @access  Private
 exports.createOrder = async (req, res) => {
-  if (req.body.orderId) {
-    const currentOrderRef = await db.collection('orders').doc(req.body.orderId)
-
-    currentOrderRef
-      .update(req.body)
-      .then((response) => {
-        return res.json(response)
-      })
-      .catch((error) => {
-        console.log(error)
-        res.status(404).json(error)
-      })
-  }
-
   try {
+    const {
+      amount_received,
+      billing_details,
+      currency,
+      customerId,
+      description,
+      items_price,
+      orderItems,
+      paid,
+      payment_method,
+      receipt_url,
+      shippingAddress,
+      shipping_price,
+      tax_price,
+    } = req.body
+
     const newOrderRef = db.collection('orders').doc()
+
     await newOrderRef.set({
       createdAt: new Date().toISOString(),
       orderId: newOrderRef.id,
-      customerId: req.body.customerId,
-      items_price: req.body.items_price,
-      tax_price: req.body.tax_price,
-      shipping_price: req.body.shipping_price,
-      total_price: req.body.total_price,
-      isPaid: false,
+      customerId: customerId,
+      items_price: items_price,
+      tax_price: tax_price,
+      shipping_price: shipping_price,
+      total_price: amount_received,
+      isPaid: paid,
       isDelivered: false,
-      shippingAddress: '',
-      billingAddress: '',
-      payment_method: '',
-      order_items: req.body.orderItems,
+      shippingAddress: shippingAddress,
+      billingAddress: billing_details,
+      payment_method: payment_method,
+      order_items: orderItems,
+      currency: currency,
+      description: description,
+      receipt_url: receipt_url,
     })
-
-    const order = db.collection('orders').doc(newOrderRef.id)
-
-    await order
-      .get()
-      .then((snapshot) => {
-        return res.status(201).json(snapshot.data())
-      })
-      .catch((error) => {
-        console.log(error)
-        return res
-          .status(404)
-          .json({ statusCode: 404, error: 'Failed to find new order' })
-      })
+    return res.status(201).json({ message: 'New order added to firestore db' })
   } catch (error) {
-    return res.status(500).json({ error: 'Failed to create new order' })
+    return res.status(500).json(error)
   }
-  y
 }
 
 //* @desc    Update order by ID
@@ -203,7 +195,32 @@ exports.fetchOrderById = async (req, res) => {
 // @desc    Get logged in user orders
 // @route   GET /api/orders/myorders
 // @access  Private
-
+exports.fetchUserOrders = async (req, res) => {
+  try {
+    const { customerId } = req.body
+    //* Create a reference to the orders collection
+    const ordersRef = db.collection('orders')
+    //* Create a query against the collection
+    const snapshot = await ordersRef
+      .where('customerId', '==', req.body.customerId)
+      .get()
+    if (snapshot.empty) {
+      console.log('No matching documents.')
+      return res
+        .status(404)
+        .json({ statusCode: 404, message: 'No matching orders found' })
+    }
+    let orders = []
+    snapshot.forEach((doc) => {
+      orders.push(doc.data())
+    })
+    return res.status(200).json(orders)
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ statusCode: 500, message: 'Failed to fetch user orders' })
+  }
+}
 //! Look into payment notifications through Stripe
 
 // @desc    Update order to delivered

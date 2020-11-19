@@ -33,20 +33,18 @@ const ProfileScreen = ({ location, history }) => {
   const { success } = userUpdateProfile
 
   const orderListMy = useSelector((state) => state.orderListMy)
-  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
+  const {
+    loading: loadingOrders,
+    error: errorOrders,
+    orders: ordersList,
+  } = orderListMy
 
   useEffect(() => {
     if (!userInfo) {
-      history.push('/')
+      history.push('/login')
     } else {
-      if (!user || !user.name || success) {
-        dispatch({ type: USER_UPDATE_PROFILE_RESET })
-        dispatch(getUserDetails('profile'))
-        dispatch(listMyOrders())
-      } else {
-        setName(user.name)
-        setEmail(user.email)
-      }
+      dispatch(listMyOrders(userInfo.stripeCustomerId))
+      // console.log(userInfo.stripeCustomerId)
     }
   }, [dispatch, history, userInfo, user, success])
 
@@ -58,8 +56,14 @@ const ProfileScreen = ({ location, history }) => {
       dispatch(updateUserProfile({ id: user._id, name, email, password }))
     }
   }
-  return (
-    <Container style={{ marginTop: '50px' }}>
+  return loadingOrders ? (
+    <>
+      <Container style={{ marginTop: '75px' }}>
+        <Loader />
+      </Container>
+    </>
+  ) : (
+    <Container style={{ marginTop: '75px' }}>
       <Row>
         <Col md={3} className='mb-4'>
           <h2>User Profile</h2>
@@ -132,44 +136,58 @@ const ProfileScreen = ({ location, history }) => {
                 </tr>
               </thead>
               <tbody>
-                {orders.map((order) => (
-                  <tr key={order._id}>
-                    <td>{order._id}</td>
-                    <td>{order.createdAt.substring(0, 10)}</td>
-                    <td>{order.totalPrice}</td>
-                    <td>
-                      {order.isPaid ? (
-                        order.paidAt.substring(0, 10)
-                      ) : (
-                        <i
-                          className='fas fa-times'
-                          style={{ color: 'red' }}
-                        ></i>
-                      )}
-                    </td>
+                {ordersList &&
+                  !loadingOrders &&
+                  ordersList.map((order) => (
+                    <tr key={order.orderId}>
+                      <td>{order.orderId}</td>
+                      <td>{order.createdAt.substring(0, 10)}</td>
+                      <td>${order.total_price / 100}</td>
+                      <td>
+                        {order.isPaid === true ? (
+                          <i
+                            className='fas fa-check'
+                            style={{ color: 'green' }}
+                          ></i>
+                        ) : (
+                          <i
+                            className='fas fa-times'
+                            style={{ color: 'red' }}
+                          ></i>
+                        )}
+                      </td>
 
-                    <td>
-                      {order.isDelivered ? (
-                        order.deliveredAt.substring(0, 10)
-                      ) : (
+                      <td>
+                        {/* {order.isPaid === true ? (
+                          <i
+                            className='fas fa-check'
+                            style={{ color: 'green' }}
+                          ></i>
+                        ) : (
+                          <i
+                            className='fas fa-times'
+                            style={{ color: 'red' }}
+                          ></i>
+                        )} */}
                         <i
                           className='fas fa-times'
                           style={{ color: 'red' }}
                         ></i>
-                      )}
-                    </td>
-                    <td>
-                      <LinkContainer
-                        to={`/order/${order._id}`}
-                        onClick={() => dispatch(getOrderDetails(order._id))}
-                      >
-                        <Button className='btn-sm' variant='light'>
-                          Details
-                        </Button>
-                      </LinkContainer>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td>
+                        <LinkContainer
+                          to={`/order/${order.orderId}`}
+                          onClick={() =>
+                            dispatch(getOrderDetails(order.orderId))
+                          }
+                        >
+                          <Button className='btn-sm' variant='light'>
+                            Details
+                          </Button>
+                        </LinkContainer>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </Table>
           )}

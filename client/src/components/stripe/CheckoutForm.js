@@ -1,14 +1,17 @@
-import { useRef } from 'react'
-
+import { useRef, useState } from 'react'
+//* Bootstrap
+import { Form, Button, Col } from 'react-bootstrap'
 //* Stripe Elements
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 //* Emotion Styling
 import styled from '@emotion/styled'
+//* Redux
+import { useDispatch, useSelector } from 'react-redux'
+import { stripeCharge } from '../../redux/actions/stripeActions'
+import Message from '../utils/Message'
 
-//* Bootstrap
-import { Form, Button, Col } from 'react-bootstrap'
-
-const CheckoutForm = () => {
+const CheckoutForm = ({ order }) => {
+  const dispatch = useDispatch()
   const nameRef = useRef()
   const emailRef = useRef()
   const addressRef = useRef()
@@ -17,11 +20,15 @@ const CheckoutForm = () => {
   const postalCodeRef = useRef()
   const phoneRef = useRef()
   const loading = false
-  // const [validated, setValidated] = useState(false)
+  const [message, setMessage] = useState(null)
 
   //* Set default billing address values
   //* with shippping address from local storage
   const shippingAddress = JSON.parse(localStorage.getItem('shippingAddress'))
+
+  //* Get prices from local storage
+  const orderInfo = JSON.parse(localStorage.getItem('orderInfo'))
+  const { total_price } = orderInfo
 
   //* Stripe Elements
   const stripe = useStripe()
@@ -85,13 +92,16 @@ const CheckoutForm = () => {
     })
 
     if (!error) {
-      console.log(paymentMethod)
+      const { id } = paymentMethod
+      if (orderInfo) {
+        dispatch(stripeCharge(id, Math.trunc(total_price * 100)))
+      }
     }
   }
 
   return (
     <>
-      <Form noValidate onSubmit={handleFormSubmit}>
+      <Form onSubmit={handleFormSubmit}>
         <h3>Checkout</h3>
         <Form.Row>
           <Form.Group as={Col} md='12' controlId='name'>
@@ -109,7 +119,7 @@ const CheckoutForm = () => {
             <Form.Label>Email</Form.Label>
             <Form.Control
               required
-              type='text'
+              type='email'
               placeholder='janedoe@example.com'
               ref={emailRef}
             />
@@ -132,7 +142,7 @@ const CheckoutForm = () => {
             <Form.Label>Billing Address</Form.Label>
             <Form.Control
               type='text'
-              placeholder='123 Main St'
+              placeholder='Enter billing address'
               ref={addressRef}
               defaultValue={
                 shippingAddress.line1 &&
@@ -192,7 +202,6 @@ const CheckoutForm = () => {
           type='submit'
           variant='primary'
           disabled={loading}
-          onClick={handleFormSubmit}
         >
           Submit Payment
         </Button>

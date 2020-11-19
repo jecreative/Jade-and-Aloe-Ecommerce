@@ -5,6 +5,7 @@ const router = express.Router()
 const {
   stripeCheckout,
   getCheckoutSessionData,
+  stripeCharge,
 } = require('../controllers/stripeController')
 
 //* Middleware
@@ -16,5 +17,6 @@ const { auth } = require('../middleware/authMiddleware')
 
 router.route('/').post(stripeCheckout)
 router.route('/session').get(getCheckoutSessionData)
+router.route('/charge').post(stripeCharge)
 
 module.exports = router

@@ -43,18 +43,6 @@ const StripeSuccessScreen = () => {
     console.log(stripeSessionDataPayload)
   }
 
-  /**
- *  amount_total: 799
-    customer: "cus_ILeLSW3YTyyyCf"
-    id: "cs_test_a0cxWOXymWeDxfthSjVc6sNFiO12hiGs2YWBlPDhEGW6w21pxk6bItmMri"
-    payment_intent: "pi_1Hm8ywAs4fA7BMN8XLbPK6Ir"
-    payment_method_types: ["card"]
-    payment_status: "paid"
-    line_items.data.quantity
-    product: "prod_IMsk9XvzCgrF37"
-    unit_amount: 799
- */
-
   //* Get cart items from localStorage
   const orderItems = JSON.parse(localStorage.getItem('cartItems'))
   console.log(orderItems)

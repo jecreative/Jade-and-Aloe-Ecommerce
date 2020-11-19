@@ -39,9 +39,6 @@ const ProductListScreen = ({ history }) => {
     dispatch(listAllProducts())
   }, [dispatch, history, userInfo])
 
-  const createProductHandler = () => {
-    dispatch(createProduct())
-  }
   return (
     <Container style={{ marginTop: '50px' }}>
       <Row className='align-items-center'>

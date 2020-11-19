@@ -49,6 +49,7 @@ const CarouselComponent = ({ img01, img02, img03 }) => {
                 role='link'
                 type='button'
                 className='btn-md w-25'
+                href='#shop'
               >
                 Shop
               </Button>

@@ -6,6 +6,7 @@ const {
   createOrder,
   fetchAllOrders,
   fetchOrderById,
+  fetchUserOrders,
   updateOrder,
 } = require('../controllers/orderController')
 
@@ -16,5 +17,6 @@ const { auth } = require('../middleware/authMiddleware')
 //* Order Routes
 router.route('/').get(fetchAllOrders).post(createOrder)
 router.route('/:id').get(fetchOrderById).put(updateOrder)
+router.route('/myorders').post(fetchUserOrders)
 
 module.exports = router

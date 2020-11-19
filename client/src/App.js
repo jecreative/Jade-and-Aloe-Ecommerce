@@ -23,6 +23,7 @@ import ProductEditView from './views/productViews/ProductEditView'
 
 //* Order Views
 import OrderListView from './views/orderViews/OrderListView'
+import OrderDetailsView from './views/orderViews/OrderDetailsView'
 
 //* Checkout/Stripe Views
 import CartView from './views/checkoutViews/CartView'
@@ -49,6 +50,7 @@ const App = ({ children, title }) => {
           <Route path='/forgot-password' component={ForgotPasswordView} />
           <Route path='/reset-password' component={ResetPasswordView} />
           <Route path='/profile' component={ProfileView} />
+          <Route path='/order/:id' component={OrderDetailsView} />
           <Route path='/product/:id' exact component={ProductView} />
           <Route path='/admin/productlist' exact component={ProductListView} />
           <Route path='/admin/orderlist' component={OrderListView} />

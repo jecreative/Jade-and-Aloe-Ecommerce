@@ -6,6 +6,7 @@ import {
   listAllProducts,
   clearProductDetails,
 } from '../redux/actions/productActions'
+import { PRODUCT_CREATE_RESET } from '../redux/types/productTypes'
 //* Bootstrap
 import { Container, Row, Col } from 'react-bootstrap'
 //* Data
@@ -25,12 +26,14 @@ const HomeScreen = () => {
 
   useEffect(() => {
     dispatch(clearProductDetails())
+    dispatch({ type: PRODUCT_CREATE_RESET })
     dispatch(listAllProducts())
   }, [dispatch])
 
   return (
     <>
       <CarouselComponent {...carouselImages} />
+      <div id='shop'></div>
       <Container className='mt-5'>
         <h1>Featured Products</h1>
         {loading ? (
@@ -39,9 +42,6 @@ const HomeScreen = () => {
           <Message variant='danger'>{error}</Message>
         ) : (
           <>
-            {/* 
-          //* Map through products and display in UI
-          */}
             <Row>
               {products.map(
                 (product) =>

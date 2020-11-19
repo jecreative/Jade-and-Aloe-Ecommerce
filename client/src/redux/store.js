@@ -21,6 +21,7 @@ import { cartReducer } from './reducers/cartReducers'
 import {
   stripePayReducer,
   stripeSessionDataReducer,
+  stripeChargeReducer,
 } from './reducers/stripeReducers'
 
 //* USER REDUCERS
@@ -60,6 +61,7 @@ const reducer = combineReducers({
   //* STRIPE
   stripePay: stripePayReducer,
   stripeSessionData: stripeSessionDataReducer,
+  stripeCharge: stripeChargeReducer,
 
   //* UPLOADS
   uploadProductImage: uploadProductImageReducer,

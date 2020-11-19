@@ -51,8 +51,6 @@ export const cartReducer = (
     case CART_RESET:
       return {
         cartItems: [],
-        shippingAddress: {},
-        paymentMethod: null,
       }
     default:
       return state
