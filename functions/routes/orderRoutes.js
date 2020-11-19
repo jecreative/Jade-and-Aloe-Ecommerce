@@ -15,8 +15,8 @@ const { admin } = require('../middleware/adminMiddleware')
 const { auth } = require('../middleware/authMiddleware')
 
 //* Order Routes
-router.route('/').get(fetchAllOrders).post(createOrder)
-router.route('/:id').get(fetchOrderById).put(updateOrder)
-router.route('/myorders').post(fetchUserOrders)
+router.route('/').get(admin, auth, fetchAllOrders).post(auth, createOrder)
+router.route('/:id').get(auth, fetchOrderById).put(admin, auth, updateOrder)
+router.route('/myorders').post(auth, fetchUserOrders)
 
 module.exports = router

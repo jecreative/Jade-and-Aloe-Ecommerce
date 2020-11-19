@@ -12,6 +12,9 @@ functions/node_modules
 
 # production
 /build
+client/build
+
+
 
 # misc
 .DS_Store
@@ -27,3 +30,4 @@ yarn-debug.log*
 yarn-error.log*
 functions/utils/firebaseConfig.js
 client/src/redux/actions/stripeActions.js
+.vscode/settings.json

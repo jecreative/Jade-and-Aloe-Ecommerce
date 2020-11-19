@@ -26,7 +26,7 @@ router
   .put(auth, admin, updateUserToAdmin)
   .delete(auth, admin, deleteUser)
 router.post('/login', login)
-router.route('/profile').put(updateUserProfile)
+router.route('/profile').put(auth, updateUserProfile)
 router.route('/forgot-password').post(forgotPassword)
 router.route('/reset-password').post(resetUserPassword)
 

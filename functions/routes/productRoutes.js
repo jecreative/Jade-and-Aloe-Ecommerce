@@ -15,6 +15,6 @@ const { auth } = require('../middleware/authMiddleware')
 
 // Product Routes
 router.route('/').get(fetchAllProducts).post(auth, admin, createProduct)
-router.route('/:id').get(fetchSingleProduct).put(updateProduct)
+router.route('/:id').get(fetchSingleProduct).put(admin, auth, updateProduct)
 
 module.exports = router
