@@ -1,6 +1,5 @@
 const functions = require('firebase-functions')
-// const stripe = require('stripe')(functions.config().stripe_secret_test.key)
-const stripe = require('stripe')('sk_test_51HgIrOAs4fA7BMN82MpJPk6IczfvYYMToHWtzQx1TYhKNqXTBJajnoaEQ7Z6Xlbwlnc3g0D5FGeLY9z1UABRreIZ00h9tVArPD')
+const stripe = require('stripe')(functions.config().stripe_test_secret.key)
 
 //* @desc    Stripe Checkout
 //* @type    POST /api/stripe
@@ -53,7 +52,6 @@ exports.getCheckoutSessionData = async (req, res) => {
 //* @type    POST /api/stripe/charge
 //* @access  TODO: Private
 exports.stripeCharge = async (req, res) => {
-  
   const { id, amount } = req.body
 
   try {
@@ -65,10 +63,9 @@ exports.stripeCharge = async (req, res) => {
       confirm: true,
     })
 
-  return res.status(200).json(payment)
-
+    return res.status(200).json(payment)
   } catch (error) {
-    console.log(error);
-    return res.status(400).json({ message: error.raw.message})
+    console.log(error)
+    return res.status(400).json({ message: error.raw.message })
   }
 }
