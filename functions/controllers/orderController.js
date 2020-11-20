@@ -1,15 +1,15 @@
 const firebaseAdmin = require('../utils/firebaseAdmin')
-const { db } = require('../utils/firebaseAdmin')
+const { db, admin } = require('../utils/firebaseAdmin')
 
 //* @desc    Get all orders
 //* @route   GET /api/orders
 //* @access  Private/Admin
 exports.fetchAllOrders = async (req, res) => {
   // Access firestore database collection
+  // TODO - order by createdAt in desc order
   db.collection('orders')
     .get()
     .then((data) => {
-      // return res.json(data)
       let orders = []
       data.forEach((doc) => {
         orders.push({
@@ -19,7 +19,9 @@ exports.fetchAllOrders = async (req, res) => {
       })
       return res.json(orders)
     })
-    .catch((err) => console.error(err))
+    .catch((err) => {
+      return res.json({ error: 'Failed to fetch orders' })
+    })
 }
 
 //* @desc    Create new order
@@ -221,8 +223,3 @@ exports.fetchUserOrders = async (req, res) => {
       .json({ statusCode: 500, message: 'Failed to fetch user orders' })
   }
 }
-//! Look into payment notifications through Stripe
-
-// @desc    Update order to delivered
-// @route   GET /api/orders/:id/deliver
-// @access  Private

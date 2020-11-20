@@ -6,16 +6,16 @@ import {
   ORDER_UPDATE_REQUEST,
   ORDER_UPDATE_SUCCESS,
   ORDER_UPDATE_FAIL,
-  ORDER_UPDATE_RESET,
+  // ORDER_UPDATE_RESET,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAIL,
   ORDER_SET_REQUEST,
   ORDER_SET_SUCCESS,
   ORDER_SET_FAIL,
-  ORDER_PAY_REQUEST,
-  ORDER_PAY_SUCCESS,
-  ORDER_PAY_FAIL,
+  // ORDER_PAY_REQUEST,
+  // ORDER_PAY_SUCCESS,
+  // ORDER_PAY_FAIL,
   ORDER_LIST_MY_REQUEST,
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
@@ -42,11 +42,15 @@ export const listOrders = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
 
-    const { data } = await axios.get(`/orders`, config)
+    const { data } = await axios.get(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/orders/list`,
+      config
+    )
 
     dispatch({
       type: ORDER_LIST_SUCCESS,
@@ -109,7 +113,11 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/orders`, order, config)
+    const { data } = await axios.post(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/orders`,
+      order,
+      config
+    )
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
@@ -146,7 +154,11 @@ export const updateOrder = (order) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(`/orders/${order.orderId}`, order, config)
+    const { data } = await axios.put(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/orders/${order.orderId}`,
+      order,
+      config
+    )
 
     localStorage.setItem('order', JSON.stringify(data))
 
@@ -185,7 +197,10 @@ export const getOrderDetails = (orderId) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/orders/${orderId}`, config)
+    const { data } = await axios.get(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/orders/${orderId}`,
+      config
+    )
 
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
@@ -222,7 +237,7 @@ export const listMyOrders = (customerId) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.post(
-      `/orders/myorders`,
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/orders/myorders`,
       { customerId },
       config
     )
@@ -260,7 +275,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.put(
-      `/api/orders/${order._id}/deliver`,
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/orders/${order._id}/deliver`,
       {},
       config
     )

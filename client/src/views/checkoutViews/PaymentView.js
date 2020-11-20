@@ -25,10 +25,6 @@ const PaymentView = ({ location, history, match }) => {
   const orderInfo = JSON.parse(localStorage.getItem('orderInfo'))
   const { total_price, shipping_price, tax_price } = orderInfo
 
-  //* Get order set loading to prevent error
-  const orderSet = useSelector((state) => state.orderSet)
-  const { loading: orderSetLoading } = orderSet
-
   //* Get Cart Items from Redux Store and Construct Line Items for Stripe
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart

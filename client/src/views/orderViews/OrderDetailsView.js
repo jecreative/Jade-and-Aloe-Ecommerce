@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 //* Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails } from '../../redux/actions/orderActions'
@@ -44,7 +44,10 @@ const PaymentView = ({ location, history, match }) => {
     <Container style={{ marginTop: '75px' }}>
       <Row>
         <Col md={6}>
-          <Link to='/profile'>
+          {/* <Link to='/profile'> */}
+          <Link
+            to={userInfo && userInfo.isAdmin ? '/admin/orderlist' : '/profile'}
+          >
             <Button variant='primary' className='mb-3'>
               Back to Dashboard
             </Button>
@@ -95,7 +98,7 @@ const PaymentView = ({ location, history, match }) => {
                     <a
                       href={orderDetailsData && orderDetailsData.receipt_url}
                       target='_blank'
-                      rel='noreferrer'
+                      rel='noopener noreferrer'
                       style={{ color: '#5EBED7' }}
                     >
                       Click to View Receipt

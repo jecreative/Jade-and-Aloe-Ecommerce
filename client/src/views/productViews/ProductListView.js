@@ -5,11 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Table, Button, Row, Col } from 'react-bootstrap'
 //* Redux
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  listAllProducts,
-  createProduct,
-} from '../../redux/actions/productActions'
-import { PRODUCT_CREATE_RESET } from '../../redux/types/productTypes'
+import { listAllProducts } from '../../redux/actions/productActions'
 //* Components
 import Message from '../../components/utils/Message'
 import Loader from '../../components/utils/Loader'
@@ -21,12 +17,7 @@ const ProductListScreen = ({ history }) => {
   const { loading, error, products } = productList
 
   const productCreate = useSelector((state) => state.productCreate)
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-    product: createdProduct,
-  } = productCreate
+  const { loading: loadingCreate, error: errorCreate } = productCreate
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin

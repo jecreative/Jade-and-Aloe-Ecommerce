@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 //* Bootstrap
 import { Form, Button, Col } from 'react-bootstrap'
 //* Stripe Elements
@@ -6,9 +6,9 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 //* Emotion Styling
 import styled from '@emotion/styled'
 //* Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { stripeCharge } from '../../redux/actions/stripeActions'
-import Message from '../utils/Message'
+// import Message from '../utils/Message'
 
 const CheckoutForm = ({ order }) => {
   const dispatch = useDispatch()
@@ -20,7 +20,7 @@ const CheckoutForm = ({ order }) => {
   const postalCodeRef = useRef()
   const phoneRef = useRef()
   const loading = false
-  const [message, setMessage] = useState(null)
+  // const [message, setMessage] = useState(null)
 
   //* Set default billing address values
   //* with shippping address from local storage
@@ -196,9 +196,24 @@ const CheckoutForm = ({ order }) => {
             </CardElementContainer>
           </div>
         </fieldset>
+        <br />
+        <p style={{ color: 'red', fontWeight: '600' }}>
+          This is a demo payment form. If you would like to submit the form
+          please use the test card informtaion below.
+        </p>
+
+        <p>
+          Card Number:{' '}
+          <span style={{ color: '#5EBED7', fontWeight: '600' }}>
+            4242 4242 4242 4242
+          </span>{' '}
+          | MM/YY:{' '}
+          <span style={{ color: '#5EBED7', fontWeight: '600' }}>01/12</span> |
+          CVC: <span style={{ color: '#5EBED7', fontWeight: '600' }}>123</span>
+        </p>
 
         <Button
-          className='mt-3'
+          className='my-4'
           type='submit'
           variant='primary'
           disabled={loading}

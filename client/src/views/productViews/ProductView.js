@@ -12,7 +12,6 @@ import {
   Container,
   Row,
   Col,
-  Image,
   ListGroup,
   Card,
   Button,

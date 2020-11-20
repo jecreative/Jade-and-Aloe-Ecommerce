@@ -1,5 +1,4 @@
-import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useRef } from 'react'
 //* Bootstrap
 import { Container, Form, Button, Col, Row } from 'react-bootstrap'
 //* Redux
@@ -7,7 +6,6 @@ import { useDispatch } from 'react-redux'
 import { saveShippingAddress } from '../../redux/actions/cartActions'
 //* Components
 import Message from '../../components/utils/Message'
-import Loader from '../../components/utils/Loader'
 
 const ShippingScreen = ({ history, location }) => {
   const nameRef = useRef('')

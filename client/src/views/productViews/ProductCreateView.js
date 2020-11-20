@@ -21,12 +21,10 @@ const ProductCreateView = ({ location, history }) => {
   const [fileName, setFileName] = useState('Choose File')
 
   const dispatch = useDispatch()
-
+  console.log(uploading)
   const uploadProductImage = useSelector((state) => state.uploadProductImage)
   const {
     loading: uploadImageLoading,
-    error: uploadImageError,
-    success: uploadImageSuccess,
     payload: uploadImagePayload,
   } = uploadProductImage
 

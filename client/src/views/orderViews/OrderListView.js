@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Table, Button } from 'react-bootstrap'
 //* Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { listOrders, getOrderDetails } from '../../redux/actions/orderActions'
+import { listOrders } from '../../redux/actions/orderActions'
 //* Components
 import Message from '../../components/utils/Message'
 import Loader from '../../components/utils/Loader'
@@ -19,10 +19,10 @@ const OrderListScreen = ({ history }) => {
   const { userInfo } = userLogin
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listOrders())
-    } else {
+    if (!userInfo.isAdmin) {
       history.push('/login')
+    } else {
+      dispatch(listOrders())
     }
   }, [dispatch, history, userInfo])
 
@@ -54,7 +54,7 @@ const OrderListScreen = ({ history }) => {
                 <td>{order.orderId}</td>
                 <td>{order.billingAddress.name}</td>
                 <td>{orders && order.createdAt.substring(0, 10)}</td>
-                <td>${order.total_price}</td>
+                <td>${order.total_price / 100}</td>
                 <td>
                   {order.isPaid === true ? (
                     <i className='fas fa-check' style={{ color: 'green' }}></i>

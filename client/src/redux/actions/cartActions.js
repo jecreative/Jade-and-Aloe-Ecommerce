@@ -8,7 +8,9 @@ import {
 } from '../types/cartTypes'
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/products/${productId}`)
+  const { data } = await axios.get(
+    `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/products/${productId}`
+  )
 
   dispatch({
     type: CART_ADD_ITEM,

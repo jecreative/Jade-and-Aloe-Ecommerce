@@ -31,3 +31,4 @@ yarn-error.log*
 functions/utils/firebaseConfig.js
 client/src/redux/actions/stripeActions.js
 .vscode/settings.json
+.firebase/*

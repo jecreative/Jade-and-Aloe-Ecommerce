@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 //* Redux
 import { useDispatch } from 'react-redux'
-import { stripeCheckout } from '../redux/actions/stripeActions'
-import { createOrder } from '../redux/actions/orderActions'
+// import { stripeCheckout } from '../redux/actions/stripeActions'
+import { createOrder } from '../../redux/actions/orderActions'
 //* Bootstrap
 import { Button, ListGroup } from 'react-bootstrap'
 
 const StripeCheckout = ({ order, history }) => {
   const dispatch = useDispatch()
-  const [message, setMessage] = useState('')
+  // const [message, setMessage] = useState('')
+  const message = ''
 
   // const makePayment = async () => {
   //   if (!order.stripeCustomerId) {

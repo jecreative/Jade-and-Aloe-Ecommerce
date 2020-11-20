@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, removeFromCart } from '../../redux/actions/cartActions'
 import {
   setOrder,
-  createOrder,
-  updateOrder,
-  getOrderDetails,
+  // createOrder,
+  // updateOrder,
+  // getOrderDetails,
 } from '../../redux/actions/orderActions'
 //* Bootstrap
 import {
@@ -20,9 +20,9 @@ import {
   Button,
   Card,
 } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+// import { LinkContainer } from 'react-router-bootstrap'
 //* Components
-import StripeCheckout from '../../components/StripeCheckout'
+// import StripeCheckout from '../../components/StripeCheckout'
 import Message from '../../components/utils/Message'
 import Loader from '../../components/utils/Loader'
 

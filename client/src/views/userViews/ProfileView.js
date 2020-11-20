@@ -5,11 +5,11 @@ import { LinkContainer } from 'react-router-bootstrap'
 // Redux
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  getUserDetails,
+  // getUserDetails,
   updateUserProfile,
 } from '../../redux/actions/userActions'
 import { listMyOrders, getOrderDetails } from '../../redux/actions/orderActions'
-import { USER_UPDATE_PROFILE_RESET } from '../../redux/types/userTypes'
+// import { USER_UPDATE_PROFILE_RESET } from '../../redux/types/userTypes'
 // Components
 import Message from '../../components/utils/Message'
 import Loader from '../../components/utils/Loader'

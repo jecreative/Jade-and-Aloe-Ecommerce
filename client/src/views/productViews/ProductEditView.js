@@ -21,9 +21,9 @@ const ProductEditView = ({ location, history, match }) => {
   const uploadProductImage = useSelector((state) => state.uploadProductImage)
   const {
     loading: uploadImageLoading,
-    error: uploadImageError,
-    success: uploadImageSuccess,
-    payload: uploadImagePayload,
+    // error: uploadImageError,
+    // success: uploadImageSuccess,
+    // payload: uploadImagePayload,
   } = uploadProductImage
 
   const productUpdate = useSelector((state) => state.productUpdate)
@@ -60,6 +60,8 @@ const ProductEditView = ({ location, history, match }) => {
   const [fileName, setFileName] = useState('Choose File')
   const dispatch = useDispatch()
   const [activeStatus, setActiveStatus] = useState(active)
+
+  console.log(`Uploading => ${uploading}`)
 
   //* Redirect for after success
   const redirect = location.search

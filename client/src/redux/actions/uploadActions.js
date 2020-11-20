@@ -23,7 +23,11 @@ export const uploadProductImages = (formData) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/uploads`, formData, config)
+    const { data } = await axios.post(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/uploads`,
+      formData,
+      config
+    )
 
     dispatch({
       type: UPLOAD_SUCCESS,

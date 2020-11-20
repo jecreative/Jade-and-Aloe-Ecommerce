@@ -27,7 +27,9 @@ export const listAllProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST })
 
-    const { data } = await axios.get(`/products`)
+    const { data } = await axios.get(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/products`
+    )
 
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
@@ -49,7 +51,9 @@ export const listProductDetails = (productId) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST })
 
-    const { data } = await axios.get(`/products/${productId}`)
+    const { data } = await axios.get(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/products/${productId}`
+    )
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -91,7 +95,11 @@ export const createProduct = (product) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/products`, product, config)
+    const { data } = await axios.post(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/products`,
+      product,
+      config
+    )
 
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
@@ -127,7 +135,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.put(
-      `/products/${product.productId}`,
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/products/${product.productId}`,
       product,
       config
     )
@@ -171,7 +179,11 @@ export const createProductReview = (productId, review) => async (
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    await axios.post(`/api/products/${productId}/reviews`, review, config)
+    await axios.post(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/products/${productId}/reviews`,
+      review,
+      config
+    )
 
     dispatch({
       type: PRODUCT_CREATE_REVIEW_SUCCESS,
@@ -192,7 +204,9 @@ export const listTopProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_TOP_REQUEST })
 
-    const { data } = await axios.get(`/api/products/top`)
+    const { data } = await axios.get(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/products/top`
+    )
 
     dispatch({
       type: PRODUCT_TOP_SUCCESS,

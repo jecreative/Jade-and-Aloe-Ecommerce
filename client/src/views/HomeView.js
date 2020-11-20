@@ -8,7 +8,7 @@ import {
 } from '../redux/actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../redux/types/productTypes'
 //* Bootstrap
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
 //* Data
 import { carouselImages } from '../data/CarouselComponentData'
 //* Components
@@ -41,18 +41,10 @@ const HomeScreen = () => {
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <>
-            <Row>
-              {products.map(
-                (product) =>
-                  product.active && (
-                    <Col key={product.productId} sm={12} md={6} lg={4} xl={3}>
-                      <Product product={product} />
-                    </Col>
-                  )
-              )}
-            </Row>
-          </>
+          <Row>
+            {products.length !== 0 &&
+              products.map((p) => <Product product={p} key={p.productId} />)}
+          </Row>
         )}
       </Container>
       <Tooltips />

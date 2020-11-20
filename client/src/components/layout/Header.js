@@ -9,8 +9,6 @@ import { logout } from '../../redux/actions/userActions'
 //* Bootstrap
 import { Nav, Navbar, Container, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-//* Components
-import SearchBox from '../product/SearchBox'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -40,21 +38,16 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='main-nav'>
-              <Route
-                render={({ history }) => <SearchBox history={history} />}
-              />
-            </Nav>
             <Nav className='ml-auto'>
               <LinkContainer to='/'>
                 <Nav.Link>Home</Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/about'>
+              {/* <LinkContainer to='/about'>
                 <Nav.Link>Our Story</Nav.Link>
               </LinkContainer>
               <LinkContainer to='/events'>
                 <Nav.Link>Events</Nav.Link>
-              </LinkContainer>
+              </LinkContainer> */}
 
               {userInfo && userInfo.isAdmin ? (
                 <NavDropdown title={userInfo.name || 'Admin'} id='adminmenu'>
@@ -67,9 +60,7 @@ const Header = () => {
                   <LinkContainer to='/admin/orderlist'>
                     <NavDropdown.Item>Orders</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </LinkContainer>
+
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>

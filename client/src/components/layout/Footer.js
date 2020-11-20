@@ -9,7 +9,7 @@ const Footer = () => {
       <Container>
         <Row>
           <Col className='text-center py-3'>
-            Copyright &copy;
+            &copy; 2020 Jordan Esguerra Creative Media
           </Col>
         </Row>
       </Container>

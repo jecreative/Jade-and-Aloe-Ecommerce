@@ -5,6 +5,7 @@ const { admin, db } = require('./utils/firebaseAdmin')
 //* Express
 const express = require('express')
 const app = express()
+app.use(express.json())
 const { notFound, errorHandler } = require('./middleware/errorMiddleware.js')
 
 //* CORS

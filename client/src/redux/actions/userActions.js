@@ -21,12 +21,12 @@ import {
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
-  // USER_DETAILS_RESET,
+  USER_DETAILS_RESET,
   USER_UPDATE_PROFILE_COMPLETE,
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
-  // USER_LIST_RESET,
+  USER_LIST_RESET,
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
@@ -36,7 +36,7 @@ import {
 } from '../types/userTypes'
 
 // import { ORDER_CREATE_RESET, ORDER_LIST_MY_RESET } from '../types/orderTypes'
-// import { CART_RESET } from '../types/cartTypes'
+import { CART_RESET } from '../types/cartTypes'
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -51,7 +51,7 @@ export const login = (email, password) => async (dispatch) => {
     }
 
     const { data } = await axios.post(
-      '/users/login',
+      'https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/users/login',
       { email, password },
       config
     )
@@ -77,11 +77,10 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo')
   dispatch({ type: USER_LOGOUT })
-  // dispatch({ type: USER_DETAILS_RESET })
-  // dispatch({ type: USER_LIST_RESET })
-  // dispatch({ type: ORDER_CREATE_RESET })
-  // dispatch({ type: ORDER_LIST_MY_RESET })
-  // dispatch({ type: CART_RESET })
+  dispatch({ type: USER_DETAILS_RESET })
+  dispatch({ type: USER_LIST_RESET })
+  dispatch({ type: CART_RESET })
+  localStorage.clear()
 }
 
 export const register = (name, email, password, confirmPassword) => async (
@@ -99,7 +98,7 @@ export const register = (name, email, password, confirmPassword) => async (
     }
 
     const { data } = await axios.post(
-      '/users',
+      'https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/users',
       { name, email, password, confirmPassword },
       config
     )
@@ -137,7 +136,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     }
 
     const { data } = await axios.post(
-      `/users/forgot-password`,
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/users/forgot-password`,
       { email },
       config
     )
@@ -167,7 +166,7 @@ export const resetPassword = (newPassword, mode, actionCode, lang) => async (
     }
 
     const { data } = await axios.post(
-      `/users/reset-password`,
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/users/reset-password`,
       { newPassword, mode, actionCode, lang },
       config
     )
@@ -201,7 +200,10 @@ export const getUserDetails = (userId) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/users/${userId}`, config)
+    const { data } = await axios.get(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/users/${userId}`,
+      config
+    )
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -237,7 +239,11 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(`/api/users/profile`, user, config)
+    const { data } = await axios.put(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/users/profile`,
+      user,
+      config
+    )
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
@@ -283,7 +289,10 @@ export const listUsers = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/api/users`, config)
+    const { data } = await axios.get(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/users`,
+      config
+    )
 
     dispatch({
       type: USER_LIST_SUCCESS,
@@ -316,7 +325,10 @@ export const deleteUser = (id) => async (dispatch, getState) => {
       },
     }
 
-    await axios.delete(`/api/users/${id}`, config)
+    await axios.delete(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/users/${id}`,
+      config
+    )
 
     dispatch({ type: USER_DELETE_SUCCESS })
   } catch (error) {
@@ -347,7 +359,11 @@ export const updateUser = (user) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(`/api/users/${user._id}`, user, config)
+    const { data } = await axios.put(
+      `https://us-central1-jade-and-aloe-ecommerce.cloudfunctions.net/api/users/${user._id}`,
+      user,
+      config
+    )
 
     dispatch({ type: USER_UPDATE_SUCCESS })
 
