@@ -1,7 +1,7 @@
 //* React
 import React from 'react'
 //* React Router Dom
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 //* Bootstrap
 import { Container } from 'react-bootstrap'
 //* Utils
@@ -35,7 +35,6 @@ const App = ({ children, title }) => {
       <main className='py-3'>
         <Route path='/' exact component={HomeView} />
         <Container>
-          {/* <Redirect to='/' /> */}
           <Route path='/login' exact component={LoginView} />
           <Route path='/register' exact component={RegisterView} />
           <Route path='/forgot-password' exact component={ForgotPasswordView} />
