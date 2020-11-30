@@ -1,12 +1,10 @@
 const { db, admin } = require('../utils/firebaseAdmin')
 const config = require('../utils/firebaseConfig')
 
+//* @desc    Upload multiple images
+//* @type    POST /api/uploads
+//* @access  Admin
 
-// Upload product image
-//! MAKE SURE TO SET RULES AFTER CONFIGURING SUCCESSFUL UPLOADS !//
-//! BEFORE MOVING FORWARD WITH PRODUCTION !//
-
-//* Attempt 1 - Multiple Image Upload
 exports.uploadImageToFirebaseStorage = async (req, res) => {
   const BusBoy = require('busboy')
   const path = require('path')

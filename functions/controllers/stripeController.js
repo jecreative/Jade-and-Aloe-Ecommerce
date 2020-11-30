@@ -1,5 +1,5 @@
 const functions = require('firebase-functions')
-const stripe = require('stripe')(functions.config().stripe_test_secret.key)
+const stripe = require('stripe')(functions.config().stripe_secret.key)
 
 //* @desc    Stripe Checkout
 //* @type    POST /api/stripe

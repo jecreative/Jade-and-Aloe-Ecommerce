@@ -1,6 +1,6 @@
 const { db } = require('../utils/firebaseAdmin')
 const functions = require('firebase-functions')
-const stripe = require('stripe')(functions.config().stripe_test_secret.key)
+const stripe = require('stripe')(functions.config().stripe_secret.key)
 
 //* @desc    Fetch all products
 //* @type    GET /api/products
