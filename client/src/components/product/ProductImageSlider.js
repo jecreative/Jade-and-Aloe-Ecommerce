@@ -23,7 +23,7 @@ const ProductImageSlider = ({ images, alt }) => {
           alt={alt}
           fluid
           style={{
-            objectFit: 'cover',
+            objectFit: 'contain',
             objectPosition: 'center',
           }}
         />

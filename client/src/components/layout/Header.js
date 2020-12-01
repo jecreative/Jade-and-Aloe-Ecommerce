@@ -1,5 +1,4 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 //* Logo
 import JadeAloeLogo from './Jade&Aloe.svg'

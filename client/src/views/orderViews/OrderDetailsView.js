@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 //* Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails } from '../../redux/actions/orderActions'
