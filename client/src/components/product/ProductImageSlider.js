@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-
 //* Bootstrap
 import { Container, Row, Image } from 'react-bootstrap'
+//* Emotion Styling
+import styled from '@emotion/styled'
 
 const ProductImageSlider = ({ images, alt }) => {
   const [activeImage, setActiveImage] = useState()
@@ -12,22 +13,24 @@ const ProductImageSlider = ({ images, alt }) => {
 
   return (
     <Container>
-      <Row
+      <ImageContainer
         style={{
           maxHeight: '400px',
           overflow: 'hidden',
         }}
       >
-        <Image
+        <StyledImage
           src={activeImage ? activeImage : images && images[0]}
           alt={alt}
           fluid
           style={{
-            objectFit: 'contain',
+            objectFit: 'cover',
             objectPosition: 'center',
+            width: '100%',
+            maxHeight: '400px',
           }}
         />
-      </Row>
+      </ImageContainer>
       <Row style={{ display: 'flex', marginTop: '1rem' }}>
         {images ? (
           images.map((displayImage, index) => (
@@ -53,5 +56,17 @@ const ProductImageSlider = ({ images, alt }) => {
     </Container>
   )
 }
+
+const ImageContainer = styled(Row)`
+  @media (max-width: 768px) {
+    height: 250px;
+  }
+`
+
+const StyledImage = styled(Image)`
+  @media (max-width: 768px) {
+    height: 250px;
+  }
+`
 
 export default ProductImageSlider

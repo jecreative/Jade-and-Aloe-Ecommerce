@@ -8,22 +8,13 @@ import { Button, ListGroup } from 'react-bootstrap'
 
 const StripeCheckout = ({ order, history }) => {
   const dispatch = useDispatch()
-  // const [message, setMessage] = useState('')
   const message = ''
 
-  // const makePayment = async () => {
-  //   if (!order.stripeCustomerId) {
-  //     history.push('/login')
-  //   } else {
-  //     dispatch(stripeCheckout(order))
-  //   }
-  // }
   const makePayment = async () => {
     if (!order.stripeCustomerId) {
       history.push('/login')
     } else {
       dispatch(createOrder(order))
-      // dispatch(stripeCheckout(order))
     }
   }
 
